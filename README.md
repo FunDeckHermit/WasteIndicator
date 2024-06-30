@@ -16,3 +16,4 @@ Scripts that modify Tasmota to interact with the Ximmio waste API. The color of 
 * Save configuration during reset
 * Actually test it
 * Integrate into Home Assistant
+* Don't use the companyCode of my local waste collector
