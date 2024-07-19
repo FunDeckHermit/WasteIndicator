@@ -1,0 +1,138 @@
+(footprint "691411710002B"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "J102"
+		(at -4 7.3 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "764a4dde-992c-4d0f-8f67-16f7ca17174e")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "691411710002B"
+		(at 0 0.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5f37cdda-000d-4396-9220-31b3273c578b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "691411710002B"
+		(at -2.5 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "8910b7a5-5060-4805-9a6c-41d66aa9cbe6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at -2.5 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f95d5f07-85a0-43ae-b8fb-8db5f028edf4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(at -2.5 2.5 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2dbb2878-d46f-4c4e-b6ed-f32e45133ab0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_rect
+		(start -5.8 -6.1)
+		(end 5.8 6.5)
+		(stroke
+			(width 0.3)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "4c745e2b-142f-4ad0-abf8-3d35299c2dee")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 2.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "dc90358a-76b1-4d10-bfcc-b24e441aaa10")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at -2.5 -2.5)
+		(size 2 2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "4e917613-5485-41dd-95a8-8c35bf0fa424")
+	)
+	(pad "1" thru_hole circle
+		(at -2.5 2.5)
+		(size 2 2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "c6d7cfbc-0a4e-443f-a09d-37e8d95be0e7")
+	)
+	(pad "2" thru_hole circle
+		(at 2.5 -2.5)
+		(size 2 2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d9a7dd37-bdab-428e-a518-e5fcc3f63c38")
+	)
+	(pad "2" thru_hole circle
+		(at 2.5 2.5)
+		(size 2 2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "1a89a68e-8e4f-432b-b029-3163cf820095")
+	)
+	(model "${KIPRJMOD}/Libraries/Part_3D_models/691411710002B (rev1).stp"
+		(offset
+			(xyz 3 1.08 4.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

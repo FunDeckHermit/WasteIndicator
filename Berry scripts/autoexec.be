@@ -62,7 +62,7 @@ class MyButtonMethods
 
     persist.save()
     tasmota.cmd("restart 1")
-    webserver.redirect("/") 
+    webserver.redirect("/")
   end
 
   def web_add_main_button()
@@ -73,7 +73,7 @@ class MyButtonMethods
     webserver.content_send("<p></p><label for='fhuisnummer'>Huisnummer:</label><input type='text' id='fhuisnummer' name='fhuisnummer'>")
     webserver.content_send("<p></p><button name='fzoekadres'>Zoek adres</button>")
     webserver.content_send("</form></p>")
-    webserver.content_send("<p></p>" + persist.adres)
+    webserver.content_send("<p></p>" + persist.find("adres", ""))
 
   end
 
@@ -91,3 +91,4 @@ class MyButtonMethods
 end
 d1 = MyButtonMethods()
 tasmota.add_driver(d1)
+

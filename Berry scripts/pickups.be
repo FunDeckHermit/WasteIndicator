@@ -39,6 +39,10 @@ pickups.check = def()
     dbFile.close()
   end
 
+  if(db.size() == 0)
+    return
+  end
+
   print("Comparing pickup dates to tomorrow")
   var tomorrowISO = get_tomorrow_ISO_date()
   var match = "NONE"
@@ -81,7 +85,7 @@ pickups.query_pickupAPI = def()
   var companyCode = "f8e2844a-095e-48f9-9f98-71fceb51d2c3"
   var querystring = f'{{"companyCode":"{companyCode}","startDate":"{yesterday}","endDate":"{nextyear}", "uniqueAddressID":"{persist.unid}"}}'
   var wc = webclient()
-  
+
   wc.begin("https://wasteapi.ximmio.com/api/GetCalendar")
   wc.add_header("Content-Type","application/json")
   var code = wc.POST(querystring)
@@ -92,7 +96,7 @@ end
 pickups.parse_and_save = def(types_list)
   var pickup_data = map()
   var dbFile = open('/pickupdates.json', 'w')
-  
+
   for pu_type: types_list
     var pu_type_str = pu_type["_pickupTypeText"]
     pickup_data[pu_type_str] = []
@@ -118,3 +122,4 @@ pickups.gather = def()
 end
 
 return pickups
+
