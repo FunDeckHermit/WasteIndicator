@@ -18,7 +18,12 @@ Scripts that modify Tasmota to interact with the Ximmio waste API. The color of 
 * Integrate into Home Assistant
 * Don't use the companyCode of my local waste collector
 * Test with a Tasmota compatible RGB light bulb
+* Blink LED on first boot
 
 # How to flash
 Use a Webserial based ESP32 flasher or use ESPtool from the command line to flash the PCB.
 First solder the "Boot" jumper, then hold the button to get the ESP32 into boot mode.
+
+`esptool --port /dev/ttyACM0 erase_flash`   
+`esptool --port /dev/ttyACM0 write_flash 0x0 tasmota32s2.factory.bin`
+
