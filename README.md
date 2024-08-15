@@ -10,11 +10,11 @@ Scripts that modify Tasmota to interact with the Ximmio waste API. The color of 
 * Adds a form to set home adres
 * Queries Ximmio's API to get the uniqueID of the adres
 * Queries pickup dates every 12 hours
-
-## To-do
 * Add a button to turn the LED off
 * Save configuration during reset
-* Actually test it
+* Reset configuration when holding button 8 seconds
+
+## To-do
 * Integrate into Home Assistant
 * Don't use the companyCode of my local waste collector
 * Test with a Tasmota compatible RGB light bulb

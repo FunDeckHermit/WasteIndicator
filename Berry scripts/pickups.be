@@ -17,6 +17,7 @@ end
 
 var set_lights = def(waste_type)
   var brightness = persist.find("brightness",255)
+  print(f"Setting Indicator to brightness: {brightness}")
   if(waste_type == "NONE")
     light.set({"power": false, "bri": 0})
   elif(waste_type == "GREEN")

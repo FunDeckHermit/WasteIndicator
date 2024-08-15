@@ -116,6 +116,6 @@ d1 = MyButtonMethods()
 tasmota.add_driver(d1)
 
 tasmota.add_rule("Button1#Action=SINGLE", def (value) print("Toggling LED OFF") light.set({"power": false}) end, 1)
-tasmota.add_rule("Button1#Action=DOUBLE", def (value) print("Device Restarting") tasmota.cmd("Restart 1") end, 2)
+tasmota.add_rule("Button1#Action=DOUBLE", def (value) print("Device Restarting") light.set({"power": true, "bri": "255", "rgb":"AAAAAA"}) tasmota.cmd("Power 3") tasmota.cmd("Restart 1") end, 2)
 tasmota.add_rule("Button1#Action=HOLD", def (value) print("Device Resetting")  light.set({"power": false, "bri": "255", "rgb":"AAAAAA"}) tasmota.cmd("Power 3") end, 3)
 tasmota.add_rule("Button1#Action=CLEAR", def (value) print("Reset Aborted")  tasmota.cmd("Power 4") light.set({"power": false}) end, 4)
