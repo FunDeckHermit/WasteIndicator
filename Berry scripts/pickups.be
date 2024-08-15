@@ -16,16 +16,17 @@ var get_tomorrow_ISO_date = def()
 end
 
 var set_lights = def(waste_type)
+  var brightness = persist.find("brightness",255)
   if(waste_type == "NONE")
-    light.set({"power": false})
+    light.set({"power": false, "bri": 0})
   elif(waste_type == "GREEN")
-    light.set({"power": true, "rgb":"00FF00"})
+    light.set({"power": true, "bri": brightness, "rgb":"00FF00"})
   elif(waste_type == "PAPER")
-    light.set({"power": true, "rgb":"0000FF"})
+    light.set({"power": true, "bri": brightness, "rgb":"0000FF"})
   elif(waste_type == "PACKAGES")
-    light.set({"power": true, "rgb":"FF8400"})
+    light.set({"power": true, "bri": brightness, "rgb":"FF8400"})
   elif(waste_type == "GREY")
-    light.set({"power": true, "rgb":"FF0000"})
+    light.set({"power": true, "bri": brightness, "rgb":"FF0000"})
   end
 end
 

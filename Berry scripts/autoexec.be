@@ -65,16 +65,38 @@ class MyButtonMethods
     webserver.redirect("/")
   end
 
+  def parse_form2()
+    persist.checktime = webserver.arg("fchecktime")
+    persist.brightness = webserver.arg("fbrightness")
+    light.set({'bri': int(webserver.arg("fbrightness"))})
+    persist.save()
+    webserver.redirect("/")
+  end
+
+
   def web_add_main_button()
     webserver.content_send("<p></p><style>.r,div:has(+ .r),.r + *{display:none;}</style>")
 
-    webserver.content_send("<p><form id='form1' style='display: block;' action='/form1' method='post'>")
+    webserver.content_send("<p><form id='form1' style='display: block;' action='/form1' method='post'><fieldset>")
+    webserver.content_send("<legend>Adresgegevens:</legend>")
     webserver.content_send("<p></p><label for='fpostcode'>Postcode:</label><input type='text' id='fpostcode' name='fpostcode'>")
     webserver.content_send("<p></p><label for='fhuisnummer'>Huisnummer:</label><input type='text' id='fhuisnummer' name='fhuisnummer'>")
     webserver.content_send("<p></p><button name='fzoekadres'>Zoek adres</button>")
-    webserver.content_send("</form></p>")
     webserver.content_send("<p></p>" + persist.find("adres", ""))
+    webserver.content_send("</fieldset></form></p>")
 
+    webserver.content_send("<p><form id='form2' style='display: block;' action='/form2' method='post'><fieldset>")
+    webserver.content_send("<legend>LED Indicator:</legend>")
+    webserver.content_send("<p></p><label for='fchecktime'>Vorige dag indicator AAN tijd:</label><input type='text' id='fchecktime' name='fchecktime' value='" + persist.find("checktime", "14:00") + "'>")
+    webserver.content_send("<p></p><label for='fbrightness'>Indicator helderheid:</label><input type='range' min='1' max='255' id='fbrightness' name='fbrightness' value='" + persist.find("brightness", "255") + "'>")
+    webserver.content_send("<p></p><button name='fsetminorconfigs'>Sla configuratie op</button>")
+    webserver.content_send("</fieldset></form></p>")
+    webserver.content_send("<div style='max-width: 360px;margin: 0 auto'>")
+    webserver.content_send("<b>Informatie:</b>")
+    webserver.content_send("<p>Deze vuilnis indicator haalt elke dag actuele ophaaldata op. Op de dag voor een ophaalmoment gaat de indicator aan.</p>")
+    webserver.content_send("<p>Door de knop 8 seconden ingedrukt te houden gaat dit apparaat terug naar fabrieksinstellingen. Hierna kan verbonden worden met een nieuw WiFi netwerk.</p>")
+    webserver.content_send("<p>Het apparaat draait open-source firmware genaamd Tasmota en kan uitgebreid worden met sensoren en verbinden met Home Assistant.</p>")
+    webserver.content_send("</div>")
   end
 
   #- As we can add only one sensor method we will have to combine them besides all other sensor readings in one method -#
@@ -86,9 +108,14 @@ class MyButtonMethods
 
   def web_add_handler()
     webserver.on("/form1", / -> self.parse_form1())
+    webserver.on("/form2", / -> self.parse_form2())
   end
 
 end
 d1 = MyButtonMethods()
 tasmota.add_driver(d1)
 
+tasmota.add_rule("Button1#Action=SINGLE", def (value) print("Toggling LED OFF") light.set({"power": false}) end, 1)
+tasmota.add_rule("Button1#Action=DOUBLE", def (value) print("Device Restarting") tasmota.cmd("Restart 1") end, 2)
+tasmota.add_rule("Button1#Action=HOLD", def (value) print("Device Resetting")  light.set({"power": false, "bri": "255", "rgb":"AAAAAA"}) tasmota.cmd("Power 3") end, 3)
+tasmota.add_rule("Button1#Action=CLEAR", def (value) print("Reset Aborted")  tasmota.cmd("Power 4") light.set({"power": false}) end, 4)
