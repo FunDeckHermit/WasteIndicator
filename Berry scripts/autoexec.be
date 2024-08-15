@@ -67,7 +67,7 @@ class MyButtonMethods
 
   def parse_form2()
     persist.checktime = webserver.arg("fchecktime")
-    persist.brightness = webserver.arg("fbrightness")
+    persist.brightness = int(webserver.arg("fbrightness"))
     light.set({'bri': int(webserver.arg("fbrightness"))})
     persist.save()
     webserver.redirect("/")
@@ -88,7 +88,7 @@ class MyButtonMethods
     webserver.content_send("<p><form id='form2' style='display: block;' action='/form2' method='post'><fieldset>")
     webserver.content_send("<legend>LED Indicator:</legend>")
     webserver.content_send("<p></p><label for='fchecktime'>Vorige dag indicator AAN tijd:</label><input type='text' id='fchecktime' name='fchecktime' value='" + persist.find("checktime", "14:00") + "'>")
-    webserver.content_send("<p></p><label for='fbrightness'>Indicator helderheid:</label><input type='range' min='1' max='255' id='fbrightness' name='fbrightness' value='" + persist.find("brightness", "255") + "'>")
+    webserver.content_send("<p></p><label for='fbrightness'>Indicator helderheid:</label><input type='range' min='1' max='255' id='fbrightness' name='fbrightness' value='" + str(persist.find("brightness", 150)) + "'>")
     webserver.content_send("<p></p><button name='fsetminorconfigs'>Sla configuratie op</button>")
     webserver.content_send("</fieldset></form></p>")
     webserver.content_send("<div style='max-width: 360px;margin: 0 auto'>")
@@ -115,7 +115,10 @@ end
 d1 = MyButtonMethods()
 tasmota.add_driver(d1)
 
-tasmota.add_rule("Button1#Action=SINGLE", def (value) print("Toggling LED OFF") light.set({"power": false}) end, 1)
-tasmota.add_rule("Button1#Action=DOUBLE", def (value) print("Device Restarting") light.set({"power": true, "bri": "255", "rgb":"AAAAAA"}) tasmota.cmd("Power 3") tasmota.cmd("Restart 1") end, 2)
-tasmota.add_rule("Button1#Action=HOLD", def (value) print("Device Resetting")  light.set({"power": false, "bri": "255", "rgb":"AAAAAA"}) tasmota.cmd("Power 3") end, 3)
-tasmota.add_rule("Button1#Action=CLEAR", def (value) print("Reset Aborted")  tasmota.cmd("Power 4") light.set({"power": false}) end, 4)
+light.set({"power": true, "bri": persist.find("brightness",150)})
+tasmota.cmd("scheme 12")
+
+tasmota.add_rule("Button1#Action=SINGLE", def (value) print("Toggling LED OFF") tasmota.cmd("scheme 0") light.set({"power": false}) end, 1)
+tasmota.add_rule("Button1#Action=DOUBLE", def (value) print("Device Restarting") tasmota.cmd("scheme 0") light.set({"power": true, "bri": persist.find("brightness",150)}) tasmota.cmd("scheme 12") tasmota.cmd("Restart 1") end, 2)
+tasmota.add_rule("Button1#Action=HOLD", def (value) print("Device Resetting")  tasmota.cmd("scheme 0") light.set({"power": false, "bri": persist.find("brightness",150), "rgb":"AAAAAA"}) tasmota.cmd("Power 3") end, 3)
+tasmota.add_rule("Button1#Action=CLEAR", def (value) print("Reset Aborted")  tasmota.cmd("scheme 0") tasmota.cmd("Power 4") light.set({"power": false}) end, 4)

@@ -16,7 +16,8 @@ var get_tomorrow_ISO_date = def()
 end
 
 var set_lights = def(waste_type)
-  var brightness = persist.find("brightness",255)
+  tasmota.cmd("scheme 0")
+  var brightness = persist.find("brightness",150)
   print(f"Setting Indicator to brightness: {brightness}")
   if(waste_type == "NONE")
     light.set({"power": false, "bri": 0})
